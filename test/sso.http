@@ -1,0 +1,3 @@
+GET https://dfuse-dev.bingosoft.net/wf-runtime/v1/process-definitions
+Authorization: Bearer bG9jYWw6MzkyMzlkZTItNWZkMS00MjJkLWEyNzItZWVmYzg0M2U2NjI2
+Accept: application/json
