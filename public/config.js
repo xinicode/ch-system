@@ -1,3 +1,3 @@
 window.config = {
-    'configUrl': 'https://dfuse.bingosoft.net/workflow/api/web.json'
+    'configUrl': '/gateway/cmp-system-service/sysParam/getConfig'
 }

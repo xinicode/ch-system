@@ -1,8 +1,0 @@
-.*
-*.md
-*.yml
-build/
-config/
-node_modules/
-test/
-gulpfile.js

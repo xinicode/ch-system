@@ -1,21 +1,43 @@
 <template>
     <div id="app">
-        <div class="head">
-            <router-link :to="'/'">首页</router-link>
-            <router-link :to="'/http'">http测试</router-link>
-            <router-link :to="'/proxy'">http代理</router-link>
-            <router-link :to="'/i18n'">国际化</router-link>
-            <router-link :to="'/permission'">权限</router-link>
-        </div>
         <router-view />
     </div>
 </template>
-<style lang="less">
-.head {
-    margin: 10px;
-    a {
-        display: inline-block;
-        margin: 5px 10px;
+<script>
+    import { on, off } from 'view-design/src/utils/dom';
+    import { setMatchMedia } from 'view-design/src/utils/assist';
+
+    import { mapMutations } from 'vuex';
+
+    setMatchMedia();
+
+    export default {
+        name: 'app',
+        methods: {
+            ...mapMutations('admin/layout', [
+                'setDevice'
+            ]),
+            handleWindowResize () {
+                this.handleMatchMedia();
+            },
+            handleMatchMedia () {
+                const matchMedia = window.matchMedia;
+
+                if (matchMedia('(max-width: 600px)').matches) {
+                    this.setDevice('Mobile');
+                } else if (matchMedia('(max-width: 992px)').matches) {
+                    this.setDevice('Tablet');
+                } else {
+                    this.setDevice('Desktop');
+                }
+            }
+        },
+        mounted () {
+            on(window, 'resize', this.handleWindowResize);
+            this.handleMatchMedia();
+        },
+        beforeDestroy () {
+            off(window, 'resize', this.handleWindowResize);
+        }
     }
-}
-</style>
+</script>

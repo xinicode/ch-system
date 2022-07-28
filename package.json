@@ -1,87 +1,18 @@
 {
-  "name": "@fly-vue/core",
-  "version": "1.5.0-snapshot",
-  "description": "Bingo Framework UI Core",
-  "keywords": [
-    "frontend",
-    "ui",
-    "microservice"
-  ],
-  "main": "index.js",
-  "es6": "es/index.js",
-  "typings": "@types/index.d.ts",
-  "sideEffects": false,
-  "scripts": {
-    "test:unit": "bingo-builder test:unit",
-    "build": "bingo-builder build --config ./build/config.js --dist ./dist/build",
-    "build:output": "bingo-builder build --inspect --mode production --config ./build/config.js --dist ./dist/build > webpack.output.js",
-    "dev": "bingo-builder dev --config ./build/config.js  --dist ./dist/dev",
-    "dev:output": "bingo-builder dev --inspect --mode development --config ./build/config.js  --dist ./dist/dev > webpack.output.js",
-    "pack": "bingo-builder pack --config ./build/config.js --dist ./dist/pack && npm run pack:esm",
-    "pack:output": "bingo-builder pack --inspect --mode production --config ./build/config.js --dist ./dist/pack > webpack.output.js",
-    "packdev": "bingo-builder packdev --config ./build/config.js --dist ./dist/packdev && npm run packdev:esm",
-    "build:nomock": "bingo-builder build --mode nomock",
-    "build:travis": "bingo-builder build --mode travis",
-    "release": "npm run pack && npm publish --access public ./dist/pack --registry=https://registry.npmjs.org/",
-    "release:bingo": "npm run pack && npm publish --access public ./dist/pack --registry=https://repo.bingosoft.net/repository/npm-bingo/",
-    "release:dev": "npm run pack && npm publish ./dist/pack --registry=https://repo.bingosoft.net/repository/npm-snapshot/",
-    "start": "npm run dev",
-    "lint": "vue-cli-service lint --fix src/ module/ *.js",
-    "update": "bingo-builder updateSnapshot --config ./build/config.js",
-    "pack:esm": "rollup -c rollup.config.js --environment TARGET:pack",
-    "packdev:esm": "rollup -c rollup.config.js --environment TARGET:packdev"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.bingosoft.net/bingo-framework/bingo-ui/core.git"
-  },
-  "files": [
-    "dist",
-    "es",
-    "lib"
-  ],
-  "author": "Bingo",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://gitlab.bingosoft.net/bingo-framework/bingo-ui/issues"
-  },
-  "homepage": "https://gitlab.bingosoft.net/bingo-framework/bingo-ui#readme",
   "dependencies": {
-    "@vue/composition-api": "1.0.2",
-    "axios": "0.21.1",
-    "crypto-js": "3.3.0",
-    "dayjs": "1.8.23",
-    "js-cookie": "2.2.1",
-    "lodash": "4.17.15",
-    "path-to-regexp": "1.8.0",
-    "query-string": "6.12.1",
-    "store2": "2.11.0",
-    "vue": "2.6.12",
-    "vue-class-component": "7.2.2",
-    "vue-i18n": "8.24.3",
-    "vue-property-decorator": "8.3.0",
-    "vue-router": "3.5.1",
-    "vuex": "3.6.2"
+    "@ch/core": "4.9.0",
+    "@fly-vue/components": "1.5.0",
+    "@fly-vue/core": "1.5.0",
+    "@fly-vue/iview-admin": "1.5.0",
+    "@fly-vue/iview-pro": "1.5.0",
+    "@fly-vue/iview-pro-style": "1.5.0",
+    "@fly-vue/ts": "1.5.0"
   },
   "devDependencies": {
-    "@fly-vue/builder": "1.5.0-snapshot",
-    "@types/crypto-js": "3.1.43",
-    "@types/js-base64": "2.3.1",
-    "@types/js-cookie": "2.2.5",
-    "@types/lodash": "4.14.129",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "check-prettier": "1.0.3",
-    "eslint-plugin-prettier": "3.3.1",
-    "husky": "2.3.0",
-    "prettier": "1.18.2",
-    "rollup": "^2.44.0",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "shelljs": "0.8.3",
-    "tslib": "^2.2.0"
+    "@fly-vue/builder": "1.5.0",
+    "@types/lodash": "4.14.122"
   },
-  "vuePlugins": {
-    "resolveFrom": "./node_modules/@fly-vue/builder/vuePlugins"
-  },
+  "homepage": "git@github.com:xinicode/ch-system.git",
   "lint-staged": {
     "*.js": [
       "vue-cli-service lint",
@@ -91,5 +22,27 @@
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "name": "@ch/system",
+  "private": true,
+  "scripts": {
+    "auto_deploy": "npm run pack && npm publish ./dist/pack --registry=https://repo.bingosoft.net/repository/npm/",
+    "build": "bingo-builder build --config ./build/config.js --dist ./dist/build",
+    "build:nomock": "bingo-builder build --mode nomock",
+    "build:output": "bingo-builder build --inspect --mode production --config ./build/config.js --dist ./dist/build > webpack.output.js",
+    "build:travis": "bingo-builder build --mode travis",
+    "dev": "bingo-builder dev --config ./build/config.js  --dist ./dist/dev",
+    "dev:output": "bingo-builder dev --inspect --mode development --config ./build/config.js  --dist ./dist/dev > webpack.output.js",
+    "lint": "bingo-builder lint --fix",
+    "pack": "node ./node_modules/@fly-vue/builder/bin/cli.js pack --config ./build/config.js --dist ./dist/pack",
+    "pack:output": "bingo-builder pack --inspect --mode production --config ./build/config.js --dist ./dist/pack > webpack.output.js",
+    "packdev": "bingo-builder packdev --config ./build/config.js --dist ./dist/packdev",
+    "publish": "npm run pack && npm publish ./dist/pack --registry=https://repo.bingosoft.net/repository/npm/",
+    "start": "npm run dev",
+    "test:unit": "bingo-builder test:unit"
+  },
+  "version": "1.0.0",
+  "vuePlugins": {
+    "resolveFrom": "./node_modules/@fly-vue/builder/vuePlugins"
   }
 }

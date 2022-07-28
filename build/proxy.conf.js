@@ -14,7 +14,7 @@
 const proxy = {};
 
 const defaultConfig = {
-  "target": 'https://dfuse.bingosoft.net/', //http://10.200.21.128:31988
+  "target": 'http://10.201.63.36', 
   "changeOrigin": true, // 是否跨域
   "secure": false,
   "logLevel":"info",

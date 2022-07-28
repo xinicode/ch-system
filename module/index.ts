@@ -1,27 +1,21 @@
-import { webApplication } from './application/application';
-import { Store } from 'vuex';
-import VueRouter from 'vue-router';
-import { AppConfig } from './config';
+import { CmpCore } from "@ch/core";
+import "@fly-vue/builder/module-ref";
+import { IWebModule, webApplication } from "@fly-vue/core";
+import { routes } from "./cmp.routes";
 
-export * from './config';
-export * from './http/index';
-export * from './security/index';
-export * from './application';
-export * from './common';
-export * from './common/logger';
-export * from './route';
-export * from './keep-alive';
-export * from './micro-app/starter';
-export * from './common/vuex-wrapped';
 
-export function store(): Store<string> {
-  return webApplication.store;
-}
-export function router(): VueRouter {
-  return webApplication.router;
-}
-export function config(): AppConfig {
-  return webApplication.config;
-}
+CmpCore.registerRoutes("system", routes);
 
-export default webApplication;
+export const ChSystemModule: IWebModule = {
+	name: process.env.VUE_APP_NAME,
+	version: process.env.VUE_APP_VERSION,
+	dependencies: process.env.VUE_APP_DEPENDENCIES.split(","),
+	install(app) {
+		const Vue = app.Vue;
+	},
+};
+
+webApplication.addModule(ChSystemModule);
+console.log("file: index.ts ~ line 21 ~ webApplication", webApplication)
+
+export default ChSystemModule;
