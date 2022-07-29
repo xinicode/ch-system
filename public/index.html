@@ -12,11 +12,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
     <link rel="shortcut icon" href="https://file.iviewui.com/file/pro-favicon2.ico">
     <title><%= VUE_APP_TITLE %></title>
-    <% if (NODE_ENV == 'development') {%><script>
-      /** 是否开发环境 **/
-      window._INDEX_ISDEV_ENV_ = true;
-      window._INDEX_ENV_ = '<%=NODE_ENV%>';
-    </script><% }%>
     <script src="./config.js?r=<%= htmlWebpackPlugin.options.random %>"></script>
     <script>
         // sso注销，修复部分场景无法注销的问题

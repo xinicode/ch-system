@@ -11,7 +11,7 @@ export default {
         "menuId": "1111-1-1",
         "spId": "1111-1",
         "title": "Pipe",
-        "path": "/system/demo/list",
+        "path": "/system/test/a",
         "icon": "ios-at",
         "showType": null,
         "code": null,

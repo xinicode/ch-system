@@ -16,7 +16,7 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@cmp/system":["./module"],
+      "@ch/system":["./module"],
       "@/*":["./*"]
     }
   },

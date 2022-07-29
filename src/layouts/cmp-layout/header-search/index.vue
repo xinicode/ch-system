@@ -7,7 +7,7 @@
             <Icon type="ios-search" />
             <DropdownMenu slot="list">
                 <div class="i-layout-header-search-drop-main">
-                    <Input  prefix="ios-search" type="text" :placeholder="$t('basicLayout.search.placeholder')" />
+                    <Input size="large" prefix="ios-search" type="text" :placeholder="$t('basicLayout.search.placeholder')" />
                     <span class="i-layout-header-search-drop-main-cancel" @click="handleCloseSearch">{{ $t('basicLayout.search.cancel') }}</span>
                 </div>
             </DropdownMenu>

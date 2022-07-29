@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@ch/core": "4.9.0",
+    "@ch/core": "^1.0.0-snapshot",
     "@fly-vue/components": "1.5.0",
     "@fly-vue/core": "1.5.0",
     "@fly-vue/iview-admin": "1.5.0",

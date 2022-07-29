@@ -5,13 +5,13 @@
         </Sider>
         <Layout class="i-layout-inside" :class="insideClasses">
             <transition name="fade-quick">
-                <Header v-show="showHeader"  class="i-layout-header" :class="headerClasses" :style="headerStyle" v-resize="handleHeaderWidthChange">
+                <Header class="i-layout-header" :class="headerClasses" :style="headerStyle" v-show="showHeader" v-resize="handleHeaderWidthChange">
                     <i-header-logo v-if="isMobile && showMobileLogo" />
                     <i-header-logo v-if="!isMobile && isHeaderStick && headerFix" />
                     <i-header-collapse v-if="(isMobile || showSiderCollapse) && !hideSider" @on-toggle-drawer="handleToggleDrawer" />
                     <i-header-reload v-if="!isMobile && showReload" @on-reload="handleReload" />
                     <i-menu-head v-if="headerMenu && !isMobile" ref="menuHead" />
-                    <i-header-breadcrumb  v-if="showBreadcrumb && !headerMenu && !isMobile" ref="breadcrumb" />
+                    <i-header-breadcrumb :menu-sider="menuSider" v-if="showBreadcrumb && !headerMenu && !isMobile" ref="breadcrumb" />
                     <i-header-search v-if="showSearch && !headerMenu && !isMobile && !showBreadcrumb" />
                     <div class="i-layout-header-right">
                         <i-header-search v-if="(showSearch && isMobile) || (showSearch && (headerMenu || showBreadcrumb))" />
@@ -26,24 +26,20 @@
                 </Header>
             </transition>
             <Content class="i-layout-content" :class="contentClasses">
-                <!-- <transition name="fade-quick">
-                    <i-tabs v-if="tabs"  v-show="showHeader" @on-reload="handleReload" />
+                <transition name="fade-quick">
+                    <i-tabs v-if="tabs" :menu-side="menuSider" v-show="showHeader" @on-reload="handleReload" />
                 </transition>
                 <div class="i-layout-content-main">
-                    <bg-keep-alive :include="keepAlive">
+                    <!-- <keep-alive :include="keepAlive">
                         <router-view v-if="loadRouter" />
-                    </bg-keep-alive>
-                </div> -->
-                <div class="i-layout-content-main" ref="contentMain">
-                    <cmp-content :include="keepAlive" :loadRouter="loadRouter" />
+                    </keep-alive> -->
+                    <!-- <bg-keep-alive>
+                        <router-view v-if="loadRouter" />
+                    </bg-keep-alive> -->
+                    <cmp-content :loadRouter="loadRouter" />
                 </div>
-
-
-
-
-
             </Content>
-            <i-copyright v-if='showCopyRight'/>
+            <i-copyright />
         </Layout>
         <div v-if="isMobile && !hideSider">
             <Drawer v-model="showDrawer" placement="left" :closable="false" :class-name="drawerClasses">
@@ -55,17 +51,21 @@
 <script>
     import { mapState, mapGetters, mapMutations } from 'vuex';
     import Setting from '@/setting';
+    import menuSider from '@/menu/sider';
     import iHeaderNotice from './header-notice';
-    import iHeaderSearch from './header-search';
+    import iHeaderSearh from './header-search';
     import iHeaderUser from './header-user';
 
     import { requestAnimation } from '@fly-vue/iview-admin';
+    import {CmpCoreMixin} from '@ch/core';
 
     export default {
         name: 'BasicLayout',
-        components: { iHeaderNotice, iHeaderSearch, iHeaderUser },
+        mixins:[CmpCoreMixin],
+        components: { iHeaderNotice, iHeaderSearh, iHeaderUser },
         data () {
             return {
+                menuSider,
                 showDrawer: false,
                 ticking: false,
                 headerVisible: true,
@@ -98,8 +98,7 @@
                 'showLog',
                 'showI18n',
                 'showReload',
-                'enableSetting',
-                'showCopyRight'
+                'enableSetting'
             ]),
             ...mapState('admin/page', [
                 'keepAlive'
@@ -115,15 +114,9 @@
                 return state;
             },
             showHeader () {
-                //_pst=h 强制隐藏头部
-                if (this.headerHide){
-                    return false;
-                } 
-                //滚动隐藏头部
-                if (this.headerFix && !this.headerVisible) {
-                    return false;
-                }
-                return true;
+                let visible = true;
+                if (this.headerFix && this.headerHide && !this.headerVisible) visible = false;
+                return visible;
             },
             headerClasses () {
                 return [
@@ -259,6 +252,7 @@
             document.removeEventListener('scroll', this.handleScroll);
         },
         created () {
+            console.log('created ....................')
             if (this.isTablet && this.showSiderCollapse) this.updateMenuCollapse(true);
         }
     }
