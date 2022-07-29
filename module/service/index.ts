@@ -160,6 +160,12 @@ export class CmpSystem {
 		return _menu;
 	}
 
+
+	static getBingoTopRightMenus() {
+		const menu = CmpSystem.getMenu({ code: "cmp_top_right" });
+		return menu && _toBingoMenus(menu.children || [], false, 100);
+	}
+
 	static makeUrl(url: string): string {
 		return CmpHttpHelper.handleUrl(url);
 	}
@@ -406,3 +412,44 @@ function _makeCmpLocaleMessage(message1, message2) {
   });
   return cmp;
 }
+
+
+function _toBingoMenus(list: MenuModel[], all = false, lv = 0) {
+	const mapList = function (list, lv) {
+	  let outList = [];
+	  _.forEach(list, function (item: MenuModel, index: number) {
+		if (!all && item.hidden) return;
+		const outItem = _makeBingoMenuItem(item, item.id);//`l${lv}i${index}`);
+		outList.push(outItem);
+		const children = item.children;
+		if (children && children.length > 0)
+		  outItem.children = mapList(children, lv + 1);
+	  });
+	  return outList;
+	};
+	return mapList(list, lv);
+  }
+
+  function _makeBingoMenuItem(item: any, name?: string) {
+	const showType: string = item.showType || '';
+	const bgMenu = {
+	  id: name || item.id,
+	  cmpid: item.id,
+	  code: item.code,
+	  path: item.url,// || CmpHelper.makeAutoId(),
+	  title: item.name,
+	  icon: item.icon || 'ios-at',
+	  name: name || CmpHelper.makeAutoId(),
+	  displayMode: item.displayMode,
+	  // header: '',
+	  target: showType.indexOf('iframe') >= 0 ? 'iframe' : (showType == 'browser-open' ? '_blank' : 'tab'),
+	  pst: showType.indexOf('widefull') >= 0 ? 'sh' : (showType.indexOf('wide') >= 0 ? 's' : '_'),
+	  auth: false,
+	  submenuSource: null,
+	  children: null
+	};
+	if (item.url && item.url.indexOf("_pst") > -1) {
+	  delete bgMenu.pst;
+	}
+	return bgMenu;
+  }

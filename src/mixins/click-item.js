@@ -1,5 +1,6 @@
 import { findComponentUpward } from 'view-design/src/utils/assist';
 import { mapState } from 'vuex';
+import { CmpHelper } from '@ch/core';
 import _ from 'lodash';
 
 let _lastPath = '';

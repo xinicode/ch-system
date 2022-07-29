@@ -68,7 +68,6 @@
 import { mapGetters, mapState } from "vuex";
 import { CmpSystem } from "@ch/system";
 import { MenuService } from "@fly-vue/iview-admin";
-// import { CmpLogger } from '@cmp/core';
 let _hasWorkflowCount = false;
 
 export default {

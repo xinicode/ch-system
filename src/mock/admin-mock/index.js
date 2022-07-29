@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-import qs from 'query-string';
+import qs from 'qs';
 import withCredentials from './patch/withCredentials';
 
 /* 补丁 */
